@@ -183,8 +183,9 @@ class TouchScorer(BaseScorer):
         ltp = candle['Close']
         return low >= price and abs(low - price) < ltp * self.DIFF_PERC_FOR_CANDLE_CLOSE / 100
 
+    # noinspection PyMethodMayBeStatic
     def cut_body(self, point, candle):
-        return max(candle['Open'], candle['Close']) > point and min(candle['Open'], candle['Close']) < point
+        return max(candle['Open'], candle['Close']) > point > min(candle['Open'], candle['Close'])
 
     def cut_wick(self, price, candle):
-        return not self.cut_body(price, candle) and candle['High'] > price and candle['Low'] < price
+        return not self.cut_body(price, candle) and candle['High'] > price > candle['Low']
