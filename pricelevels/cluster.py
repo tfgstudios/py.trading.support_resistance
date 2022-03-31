@@ -48,10 +48,12 @@ class RawPriceClusterLevels(BaseLevelFinder):
         d = pd.DataFrame(data=X, columns=('price',))
         bars_to_shift = int((self._bars_for_peak - 1) / 2)
 
+        df = d['price'].rolling(window=self._bars_for_peak)
         if self._use_max:
-            d['F'] = d['price'].rolling(window=self._bars_for_peak).max().shift(-bars_to_shift)
+            df = df.max()
         else:
-            d['F'] = d['price'].rolling(window=self._bars_for_peak).min().shift(-bars_to_shift)
+            df = df.min()
+        d['F'] = df.shift(-bars_to_shift)
 
         prices = pd.unique(d[d['F'] == d['price']]['price'])
 
