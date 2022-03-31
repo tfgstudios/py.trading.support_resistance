@@ -4,7 +4,7 @@ from pricelevels.cluster import RawPriceClusterLevels
 from pricelevels.visualization.levels_on_candlestick import plot_levels_on_candlestick
 
 df = pd.read_csv('sample.txt')
-cl = RawPriceClusterLevels(None, merge_percent=0.25, use_maximums=True, bars_for_peak=91)
+cl = RawPriceClusterLevels(None, merge_percent=0.25, use_maximums=True, bars_for_peak=21)
 cl.fit(df)
 levels = cl.levels
 

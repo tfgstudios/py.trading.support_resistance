@@ -5,6 +5,7 @@ import numpy as np
 from .abstract import BaseScorer
 
 
+# noinspection PyArgumentList
 class PointEventType(Enum):
     CUT_BODY = auto()
     CUT_WICK = auto()

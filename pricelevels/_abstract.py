@@ -1,3 +1,5 @@
+from abc import ABC
+
 import numpy as np
 import pandas as pd
 from zigzag import peak_valley_pivots
@@ -27,7 +29,7 @@ class BaseLevelFinder:
     def fit(self, data):
         if isinstance(data, pd.DataFrame):
             X = data['Close'].values
-        elif isinstance(data, np.array):
+        elif isinstance(data, np.ndarray):
             X = data
         else:
             raise InvalidArgumentException(
@@ -53,8 +55,7 @@ class BaseLevelFinder:
         raise NotImplementedError()
 
 
-class BaseZigZagLevels(BaseLevelFinder):
-
+class BaseZigZagLevels(BaseLevelFinder, ABC):
     def __init__(self, peak_percent_delta, merge_distance, merge_percent=None, min_bars_between_peaks=0, peaks='All',
                  level_selector='median'):
         self._peak_percent_delta = peak_percent_delta / 100
